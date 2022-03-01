@@ -1,0 +1,124 @@
+from cgi import print_environ_usage
+import re
+from matplotlib import rc_params_from_file
+from pandas import read_html
+
+
+def find(tar,ma):
+    a=[]
+    for i in range(len(ma)):
+        a=ma[i]
+        if tar in a:
+            return True
+    return False
+
+def find2(tar,ma):
+    a=[]
+    for i in range(len(ma)):
+        a=ma[i]
+        if (tar>=a[0]) and  (tar<=a[len(a)-1]):
+            for i in range(len(a)):
+                if a[i]==tar:
+                    return True
+    return False
+
+def find3(ta,ma):
+    for i in range(len(ma)):
+        if ta>=ma[i][0] and ta<=ma[i][len(ma[i])-1]:
+            for j in range(len(ma[i])):
+                if ta== ma[i][j]:
+                    return True
+    return False
+
+def find4(tar, ma):
+    line=0
+    while(line!=len(ma)):
+        if tar>=ma[line][0] and tar<=ma[line][len(line)-1]:
+            for j in range(len(ma[line])):
+                if tar== ma[line][j]:
+                    return True
+        line+=1
+    return False
+def find5(tar,ma):
+    a=len(ma)//2
+    b=len(ma[a])//2
+    print(ma[a][b])
+    if tar>=ma[a][b]:
+        c=[]
+        for i in range(len(ma[a])):
+            if ma[a][i]>=ma[a][b]:
+                c.append(ma[a][i])
+        if tar in c:
+            return True
+        for i in range(a+1,len(ma)):
+            for j in range(len(ma[i])):
+                if ma[i][j]==tar:
+                    return True
+    else:
+        for i in range(a):
+            for j in range(len(ma[i])):
+                if tar==ma[i][j]:
+                    return True
+    return False
+
+
+
+
+
+def findtarget(tar,matrix):
+    line=0
+    '''寻找目标数字在哪一行'''
+    for i in range(len(matrix)): 
+        if tar>=matrix[line][0] and tar<=matrix[line][len(matrix[line])-1]:
+            break
+        line=line+1
+    '''超出了寻找的范围'''
+    if line==len(matrix):
+       return False
+
+    for i in range(len(matrix[line])):
+        if tar==matrix[line][i]:
+            return True
+    return False
+
+def findtarget1(tar,ma):
+    a=np.where(ma==tar)
+    print(a)
+    if  len(a[0]) != 0:
+        return True
+    return False
+
+
+def finalfind(tar,ma):
+    notfound=True
+    a=len(ma[0])-1
+    b=0
+    start=ma[b][a]
+    print(start)
+    while(notfound):
+        if a<0 or b>=len(ma):
+            print('go')
+            break
+        if ma[b][a]==tar:
+            return True
+        if ma[b][a]>tar:
+            print()
+            print(ma[b][a])
+            print("big")
+            a-=1
+        else:
+            print()
+            print(ma[b][a])
+            print("sma")
+            b+=1
+    return False
+
+
+
+
+import numpy as np
+'''matrix1 = np.array([[1,2,3,], [4,5,6], [7,8,9]])
+print(finalfind(8,matrix1))'''
+matrix2 = np.array([[1,2,3,4,], [2,4,5,6], [7,8,9,20]])
+print(finalfind(0,matrix2))
+
